@@ -1,6 +1,20 @@
+import { useContext } from 'react';
+import { ShopContext } from '../context';
+
 
 export function BasketItem(props){
-    const{mainId, displayName, price, quantity, removeFromBasket =Function.prototype, incrQuantity= Function.prototype, decrQuantity=Function.prototype} = props;
+    const {
+        mainId, 
+        displayName, 
+        price, quantity, 
+        removeFromBasket =Function.prototype, 
+        incrQuantity= Function.prototype, 
+        decrQuantity=Function.prototype
+    } = props;
+
+    const{example} = useContext(ShopContext);
+    console.log(example)
+
     return <li  className="collection-item ">
         {displayName} x <i className='material-icons pointer' onClick={()=>decrQuantity(mainId) } >remove</i>
         {quantity}
