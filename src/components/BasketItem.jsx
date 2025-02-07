@@ -22,6 +22,5 @@ export function BasketItem(props){
         <span  className="secondary-content" onClick={()=>removeFromBasket(mainId)} >
             <i className="material-icons basket-delete">close</i>
         </span>
-
     </li>
 }
