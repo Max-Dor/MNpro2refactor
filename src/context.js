@@ -23,6 +23,9 @@ export const ContextProvider =({children})=>{
     value.handleBasketShow = ()=>{
         dispatch({type: 'HANDLE-BASKET-SHOW'})
     }
+    value.addToBasket =(item)=>{
+        dispatch({type:'ADD_TO_BASKET', payload:item})
+    }
 
     return <ShopContext.Provider value={value} >
         {children}
