@@ -1,7 +1,11 @@
-
+import { useContext } from 'react';
+import { ShopContext } from '../context';
 
 export function GoodsItem(props){
-    const {mainId, displayName,displayAssets, displayDescription, price, addToBasket = Function.prototype}= props;
+    const {mainId, displayName,displayAssets, displayDescription, price}= props;
+
+    const{addToBasket} = useContext(ShopContext);
+
     const https = "https://media.fortniteapi.io/images/shop/82c1537ae50314ad77e00b90ed82914311d121a4cd00eb39933057517406c480/v2/MI_CID_A_336_M_Zest/background.png";
 
     return  <div className="card" >

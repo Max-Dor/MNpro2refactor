@@ -1,7 +1,7 @@
 import { createContext, useReducer } from 'react';
 import { reducer } from './reducer';
 
-const initialState ={
+const initialState = {
     goods: [],
     loading: true,
     order: [],
@@ -18,13 +18,19 @@ export const ContextProvider =({children})=>{
         dispatch({type :'CLOSE_ALERT'})
     }
     value.removeFromBasket =(itemId)=>{
-        dispatch({type:'REMOVE-FROM-BASKET', payload:{mainId: itemId}})
+        dispatch({type:'REMOVE_FROM_BASKET', payload:{mainId: itemId}})
     }
     value.handleBasketShow = ()=>{
-        dispatch({type: 'HANDLE-BASKET-SHOW'})
+        dispatch({type: 'HANDLE_BASKET_SHOW'})
     }
     value.addToBasket =(item)=>{
         dispatch({type:'ADD_TO_BASKET', payload:item})
+    }
+    value.incrQuantity = (itemId)=>{
+        dispatch({type:'INCREMENT_QUANTITY', payload:{mainId: itemId}})
+    }
+    value.decrQuantity = (itemId)=>{
+        dispatch({type:'DECREMENT_QUANTITY', payload:{mainId: itemId}})
     }
 
     return <ShopContext.Provider value={value} >

@@ -1,23 +1,54 @@
 
 export function reducer (state,{type,payload}){
         switch(type){
-                case 'HANDLE-BASKET-SHOW':
+                case 'INCREMENT_QUANTITY':
                         return{
                                 ...state,
-                                isBasketShow: !isBasketShow,
+                                order: state.order.map(e=>{
+                                        if(e.mainId === payload.itemId ){
+                                                const newQuantity = e.quantity + 1;
+                                                return{
+                                                ...e,
+                                                quantity: newQuantity
+                                        }
+                                        }else{
+                                                return e;
+                                        }
+                                })
+                        }
+                case 'DECREMENT_QUANTITY':
+                        return{
+                                ...state,
+                                order: state.order.map(e=>{
+                                        if(e.mainId === payload.itemId ){
+                                                const newQuantity = e.quantity - 1;
+                                                return{
+                                                ...e,
+                                                quantity: newQuantity >= 0 ? newQuantity: 0,
+                                        }
+                                        }else{
+                                                return e;
+                                        }
+                                })
+                        }
+                case 'HANDLE_BASKET_SHOW':
+                        return{
+                                ...state,
+                                isBasketShow: !state.isBasketShow,
                         }
                 case 'CLOSE_ALERT':
                         return{
                                 ...state,
                                 alertName: '',
                         }
-                case 'REMOVE-FROM-BASKET':
+                case 'REMOVE_FROM-BASKET':
                         return{
                                 ...state,
-                                order: state.order.filter(el => el.mainId !== payload.mainId)
+                                order: state.order.filter((el) => el.mainId !== payload.mainId)
                         }
-                case 'ADD_TO_BASKET':{
-                        const itemIndex = state.order.findIndex(orderItem => orderItem.mainId === payload.mainId)
+                case 'ADD_TO_BASKET': {
+                        const itemIndex = state.order.findIndex(
+                                (orderItem) => orderItem.mainId === payload.mainId);
 
                         let newOrder = null;
                         if(itemIndex < 0){
@@ -41,10 +72,9 @@ export function reducer (state,{type,payload}){
                         return {
                                 ...state,
                                 order: newOrder,
-                                alertName: payload.name,
+                                alertName: payload.displayName,
                         }
                 }
-
         default:
                 return state;
         }
