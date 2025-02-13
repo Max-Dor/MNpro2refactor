@@ -6,14 +6,10 @@ export function BasketItem(props){
     const {
         mainId, 
         displayName, 
-        price, quantity, 
-        removeFromBasket =Function.prototype, 
-        incrQuantity= Function.prototype, 
-        decrQuantity=Function.prototype
+        price, quantity,  
     } = props;
 
-    const{example} = useContext(ShopContext);
-    console.log(example)
+    const{removeFromBasket, incrQuantity, decrQuantity } = useContext(ShopContext);
 
     return <li  className="collection-item ">
         {displayName} x <i className='material-icons pointer' onClick={()=>decrQuantity(mainId) } >remove</i>

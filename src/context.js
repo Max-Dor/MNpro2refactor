@@ -32,6 +32,9 @@ export const ContextProvider =({children})=>{
     value.decrQuantity = (itemId)=>{
         dispatch({type:'DECREMENT_QUANTITY', payload:{mainId: itemId}})
     }
+    value.setGoods =(data) =>{
+        dispatch({type:'SET_GOODS', payload: data})
+    }
 
     return <ShopContext.Provider value={value} >
         {children}

@@ -1,6 +1,12 @@
 
 export function reducer (state,{type,payload}){
         switch(type){
+                case 'SET_GOODS':
+                        return{
+                                ...state,
+                                goods: payload || [],
+                                loading: false,
+                        }
                 case 'INCREMENT_QUANTITY':
                         return{
                                 ...state,
@@ -56,7 +62,7 @@ export function reducer (state,{type,payload}){
                                 ...payload,
                                 quantity: 1,
                         };
-                                newOrder = [...state.opder, newItem];
+                                newOrder = [...state.order, newItem];
                         }else{
                                 newOrder = state.order.map((orderItem, index)=> {
                                 if(index === itemIndex){

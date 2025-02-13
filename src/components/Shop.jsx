@@ -1,64 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useEffect , useContext } from 'react';
 import { API_URL , API_KEY }  from '../config';
 import { Preloader } from './Preloader';
 import { GoodsList } from './GoodsList';
 import { Cart } from './Cart';
 import { BasketList } from './BasketList';
 import { Alert } from './Alert';
+import { ShopContext } from '../context';
 
 export function Shop(){
-
-    const[goods, setGoods] = useState([]);
-    const[loading,setLoading] = useState(true);
-    const[order, setOrder] = useState([]);
-    const[isBasketShow , setIsBasketShow] = useState(false);
-    const[alertName, setAlertName] = useState('')
-
-
-    function handleBasketShow(){
-        setIsBasketShow(!isBasketShow);
-    };
-
-    const removeFromBasket = (itemId)=>{
-        const newOrder = order.filter(el => el.mainId !== itemId)
-        setOrder(newOrder)
-    };
-
-    const incrQuantity = (item)=>{
-        const orderItem = order.map(e=>{
-            if(e.mainId === item ){
-                const newQuantity = e.quantity + 1;
-                return{
-                    ...e,
-                    quantity: newQuantity
-                }
-            }else{
-                return e;
-            }
-        })
-        
-        setOrder(orderItem)
-    };
-
-    const decrQuantity = (item)=>{
-        const orderItem = order.map(e=>{
-            if(e.mainId === item ){
-                const newQuantity = e.quantity - 1;
-                return{
-                    ...e,
-                    quantity: newQuantity >= 0 ? newQuantity : 0
-                }
-            }else{
-                return e;
-            }
-        })
-        
-        setOrder(orderItem)
-    };
-
-    const closeAlert = ()=>{
-        setAlertName('')
-    }
+    const {loading,
+            order, 
+            isBasketShow,
+            alertName, 
+            setGoods,
+        } = useContext(ShopContext);
 
     useEffect(function getGoods(){
         fetch(API_URL, {
@@ -68,24 +23,18 @@ export function Shop(){
         }).then((response) => response.json())
             .then((data)=>{
                 data.shop && setGoods(data.shop);
-                setLoading(false);
-            })
+            });
+            // eslint-disable-next-line
     },[]);
 
     return <main className='container content'>
-        <Cart quantity={order.length} handleBasketShow={handleBasketShow}/>
-        { loading ? <Preloader/> : <GoodsList goods={goods}/>}
+        <Cart quantity={order.length} />
+        { loading ? <Preloader/> : <GoodsList/>}
         { isBasketShow && (
-        <BasketList
-        order={order} 
-        handleBasketShow = {handleBasketShow} 
-        removeFromBasket={removeFromBasket} 
-        incrQuantity={incrQuantity} 
-        decrQuantity={decrQuantity}
-        />
+        <BasketList />
         )}
         {
-            alertName && <Alert name={alertName} closeAlert={closeAlert }/>
+            alertName && <Alert/>
         }
     </main>
 }
