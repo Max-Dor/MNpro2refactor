@@ -27,10 +27,10 @@ export const ContextProvider =({children})=>{
         dispatch({type:'ADD_TO_BASKET', payload:item})
     }
     value.incrQuantity = (itemId)=>{
-        dispatch({type:'INCREMENT_QUANTITY', payload:{mainId: itemId}})
+        dispatch({type:'INCREMENT_QUANTITY', payload:{itemId : itemId}})
     }
     value.decrQuantity = (itemId)=>{
-        dispatch({type:'DECREMENT_QUANTITY', payload:{mainId: itemId}})
+        dispatch({type:'DECREMENT_QUANTITY', payload:{itemIdgit: itemId}})
     }
     value.setGoods =(data) =>{
         dispatch({type:'SET_GOODS', payload: data})

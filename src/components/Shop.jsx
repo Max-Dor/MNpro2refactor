@@ -22,7 +22,7 @@ export function Shop(){
             },
         }).then((response) => response.json())
             .then((data)=>{
-                data.shop && setGoods(data.shop);
+                setGoods(data.shop);
             });
             // eslint-disable-next-line
     },[]);
@@ -30,11 +30,7 @@ export function Shop(){
     return <main className='container content'>
         <Cart quantity={order.length} />
         { loading ? <Preloader/> : <GoodsList/>}
-        { isBasketShow && (
-        <BasketList />
-        )}
-        {
-            alertName && <Alert/>
-        }
+        { isBasketShow && <BasketList />}
+        { alertName && <Alert/>}
     </main>
 }

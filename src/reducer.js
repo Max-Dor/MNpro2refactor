@@ -15,7 +15,7 @@ export function reducer (state,{type,payload}){
                                                 const newQuantity = e.quantity + 1;
                                                 return{
                                                 ...e,
-                                                quantity: newQuantity
+                                                quantity: newQuantity,
                                         }
                                         }else{
                                                 return e;
